@@ -1,0 +1,145 @@
+.input-login
+{ 
+    color: black;
+    width: 100%;
+    padding: 3px 0px 3px 5px;
+    background: #f9fbfb;
+    height: 34px;
+    outline: 0;
+    padding-left: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    border-radius: 0px;
+    border: none;
+    border-bottom: 2.5px solid var(--color-b);
+    -webkit-box-shadow: inset 0px 0px 0px var(--background);
+	box-shadow: inset 0px 0px 0px var(--background);
+} 
+
+.input-login:hover
+{ 
+    background: #f9fbfb;
+    border: none;
+    border-bottom: 2.5px solid var(--color-a);
+
+} 
+
+.container-form {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    padding: 0px;
+}
+#column-form {
+    flex: 1 1 35%;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+#column-image {
+    flex: 1 1 65%;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.code-inputs 
+{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 50px;
+}
+.code-inputs input {
+    width: 40px;
+    height: 50px;
+    font-size: 2rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.code-inputs input:hover {
+    
+    border: 1px solid #40affb;
+}
+
+.code-inputs input:focus {
+    outline: none;
+    border-color: #40affb;
+    box-shadow: 0 0 5px rgba(64, 175, 251, 0.5);
+}
+
+#div_logo
+{
+    width: 240px; 
+    height: auto; 
+    z-index: 1000; 
+    position:absolute; 
+    left: calc(17.5% - 120px); 
+    top: 80px;
+}
+
+#div_footer
+{
+    position: absolute; 
+    bottom: 5px; 
+    width: 300px; 
+    padding: 10px; 
+    left: calc(17% - 150px);
+    color: gray; 
+    font-size: 12px; 
+    text-align: center;
+}
+
+#div_message
+{   
+
+    position: absolute; 
+    bottom: 60px; 
+    width: 300px; 
+    padding: 10px; 
+    left: calc(17% - 150px);
+    color: var(--red); 
+    text-transform: uppercase;
+    font-size: 14px; 
+    text-align: center;
+}
+
+.fondo 
+{
+    background: url('/imgs/background_st.webp') no-repeat center center; 
+    background-size: cover;
+}
+
+@media (max-width: 1100px) {
+    #column-form {
+        flex: 1 1 100%;
+    }
+    #column-image{
+        visibility: hidden;
+    }
+
+    #div_logo
+    {
+        width: 240px; 
+        height: auto; 
+        z-index: 1000; 
+        position:absolute; 
+        top: 80px;
+        left: calc(50% - 120px); 
+    }
+
+    #div_footer
+    {
+        position: absolute; 
+        bottom: 5px; 
+        width: 300px; 
+        padding: 10px; 
+        left: calc(50% - 170px);
+        color: gray; 
+        font-size: 12px; 
+        text-align: center;
+    }
+}

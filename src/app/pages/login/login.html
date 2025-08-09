@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+        <title>SAFETRACK</title>
+        <meta http-equiv='cache-control' content='no-cache'>
+        <meta http-equiv='expires' content='0'>
+        <meta http-equiv='pragma' content='no-cache'>
+
+        <link rel="icon" href="imgs/favico_safetrack.png" sizes="32x32" type="image/png">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        </head>
+
+<body style='background-color: var(--background-form);'>
+    <div id='div_logo'>
+        <img src="/imgs/safetrack_logo.webp" alt="Image" style="width: 240px; height: auto; ">
+
+        <i class="fa-solid fa-circle-notch fa-spin fa-2x fa-fw"></i>
+    </div>
+
+    <div class="container-form">
+        <div id="column-form">
+            <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f9fbfb;">
+                <form [formGroup]="loginForm" style="width: 90%; max-width: 300px;" autocomplete="off">
+                    <div id = 'login_form' style='display: block;'>
+                        <div id='div_fields'>
+                            <div style="margin-bottom: 15px; margin-top:70px;">
+                                <label for="username" style="margin-bottom: 3px;">Usuario</label>
+                                <input type="text" id="i_username" name="i_username" class='input-login' placeholder='Escribe tu usuario' autocomplete="aus"  text='' (keydown)="onKeydown($event)" required formControlName="username">
+                            </div>
+                            <div style="margin-bottom: 5px; margin-top: 20px;">
+                                <label for="password" style="margin-bottom: 3px;">Contraseña</label>
+                                <input type="password" id="i_password" name="i_password" class='input-login' placeholder='Escribe tu contraseña' (keydown)="onKeydown($event)" text='' required formControlName="password">
+                            </div>
+                            <div style="margin-bottom: 15px; margin-top: 10px;">
+                                <input type="checkbox" id="show-password" (click)="tooglePassword()" style="margin-right: 5px; ">
+                                <label for="show-password" style='font-size: 14px;'>Mostrar contraseña</label>
+                            </div>
+                        </div>
+                        
+                        
+                            <div class='button-big' style='margin-top: 80px; height:90px; display: block;' align='center' id='bt_login'>
+                                <!--<a (click)="handleSubmit()" >Iniciar Sesión</a>-->
+                            </div>
+
+                            <div id='p_loader' style='margin-top: 80px; color: var(--color-a); font-size: 18px; text-align: center;  display: none;  height:90px'>
+                                <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
+                            </div>
+
+                    </div>
+
+                    
+                    <div id='verification_form' style='display: none;'>
+                    <div align='center'>Ingresa el código de verificación enviado a tu correo corporativo</div>
+                        <div class="code-inputs">
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                        </div>
+
+                        <div class='button' style='margin-top: 50px; height:90px' align='center' id='bt_cancel'>
+                            <a href='javascript:confirmLogin();' >Confirmar</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div id="column-image" class="fondo">
+            
+        </div>
+
+        <div id='div_message'>
+            
+        </div>
+
+        <div id='div_footer'>
+            SAFETECH TECNOLOGÍA SEGURA &copy; 2025
+        </div>
+    </div>
+
+    <script>
+        var input = document.getElementById("i_password");
+        input.addEventListener("keyup", function(event) 
+        {
+            if (event.keyCode === 13) 
+            {
+            event.preventDefault();
+            authWithVendor();
+            }
+        });
+
+        // Auto-focus next input
+        const inputs = document.querySelectorAll('.code-inputs input');
+        inputs.forEach((input, idx) => {
+            input.addEventListener('input', () => {
+                if (input.value.length === 1 && idx < inputs.length - 1) {
+                    inputs[idx + 1].focus();
+                }
+
+                if(idx === inputs.length - 1 && input.value.length === 1) {                    
+                    verification_code_input = Array.from(inputs).map(i => i.value).join('');
+                    console.log('Verification code:', verification_code_input);
+
+                    confirmLogin();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && input.value === '' && idx > 0) {
+                    inputs[idx - 1].focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+<app-loader></app-loader>

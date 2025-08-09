@@ -1,1 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --color-a-safetech: #e83e33; 
+    --color-b-safetech: #593a97; 
+
+    --background-login: #1f1d1d;
+
+    --color-a: #e83e33; 
+    --color-b: #593a97; 
+
+    --light-1: #f9fbfb;
+    --light-2: #fefefe;
+
+    --background: #fefefe;
+    --background-form-gray: #e3e7e9;
+
+    --border-line: #4e4e4e;
+
+    --dark: #232a2e;    
+    --gray: #848a91;
+
+    --light: #f3f3f3;
+    --white: #ffffff;
+
+    --yellow: #F8FFA2;
+
+    --green: #258133;
+    --red: #c0392b;
+    --disconnected: #777575;
+    --warning: #f39c12;
+    --info: #3498db;
+
+    --card-green: #dcedce;
+    --card-green-text: #748663;
+    --card-blue:#bae4ee;
+    --card-blue-text: #5a8b9c;
+}
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./assets/fonts/monserrat-variable.otf');
+}
+
+body 
+{
+    background-color: var(--background);
+    width: auto;
+    margin: 0 auto;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html
+{
+    background-color: var(--background);
+    color: black;
+}
