@@ -1,0 +1,8 @@
+.container-map
+{   margin-top: 43px;
+    padding-top: -10px;
+    position: absolute;
+    height: calc(100% - 230px);
+    padding-bottom: 100px;
+    width: 100%;
+}

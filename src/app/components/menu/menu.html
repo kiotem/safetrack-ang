@@ -1,0 +1,72 @@
+<div id='div_menu'>
+        <div id='header'>
+                <div>
+                    <ul class="nav">
+                        @for (m of menuItems; track $index)
+                        {
+                            @if(m.subitems.length > 0)
+                            {
+                                <li>
+                                    <a (click)="launchOption(m)">
+                                        <i class="{{m.icon}}"></i>&nbsp;&nbsp;{{m.name}}<i class="fa fa-angle-down m-arrow"></i>
+                                    </a>
+
+                                    <ul>
+                                        @for (sub of m.subitems; track $index)
+                                        {
+
+                                            @if(sub.subitems.length > 0)
+                                            {
+                                                <li>
+                                                    <a (click)="launchOption(sub)">
+                                                        <i class="{{sub.icon}}"></i>&nbsp;&nbsp;{{sub.name}}<i class="fa fa-angle-right m-arrow"></i>
+                                                    </a>
+                                                    <ul>
+                                                        @for (sub2 of sub.subitems; track $index)
+                                                        {
+                                                            <li>
+                                                                <a (click)="launchOption(sub2)">
+                                                                    <i class="{{sub2.icon}}"></i>&nbsp;&nbsp;{{sub2.name}}
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            }@else {
+                                            <li>
+                                                <a (click)="launchOption(sub)">
+                                                    <i class="{{sub.icon}}"></i>&nbsp;&nbsp;{{sub.name}}
+                                                </a>
+                                            </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }@else 
+                            {
+                                <li>
+                                    <a (click)="launchOption(m)">
+                                        <i class="{{m.icon}}"></i>&nbsp;&nbsp;{{m.name}}
+                                    </a>
+                                </li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+
+        </div>
+
+</div>
+
+<div id='login_info' class ='a-link' style="display: none;">
+        <!--<a href="#"><span id='user_email'>Jorge Caldera</span>&nbsp;&nbsp;<i class="fa fa-user" style="font-size: 14px;"></i></a>-->
+    <div style="display: flex; align-items: center; background-color: #f3f3f3; padding: 10px; padding-right: 20px; border-radius: 40px;" class="project-card">
+        <img src="imgs/img_profile_demo.jpeg" style="width: 38px; height: 38px; object-fit: cover; border-radius: 100px; margin-right: 10px;">
+        <div>
+            <div id="project-title">Ivanka Kowasky</div>
+            <div id="project-location" style="font-size: 14px; margin-top: 4px; color: var(--gray);">ikowasky&#64;promotorasfull.com</div>
+        </div>
+
+    </div>
+</div>

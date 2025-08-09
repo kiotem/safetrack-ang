@@ -1,0 +1,135 @@
+.button-big a
+{
+    width: 80px;
+    height: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:14px;
+    color: #FFFFFF;
+    text-decoration: none;
+    /*background: var(--color-a);*/
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    transition: background 0.3s ease, transform 0.2s ease;
+    background: var(--primary-color, #40affb);
+}
+
+.button-big a:hover
+{
+    cursor: pointer;
+    text-decoration: none;
+    background: var(--hover-color, #338cc9);
+    transform: scale(1.05);
+}
+
+.a-link a{
+    padding-top: 4px;
+    color: var(--color-a);
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    z-index: 10000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    /*backdrop-filter: blur(5px);*/
+    border: none;
+}
+
+.a-link a:hover{
+    color: var(--color-b);
+    border: none;
+}
+
+.button a
+{
+    width: 80px;
+    height: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:14px;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    background: var(--primary-color, var(--color-a));
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button a:hover
+{
+    background: var(--hover-color, var(--color-b));
+    color: var(--white);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-flat a
+{
+    width: 80px;
+    height: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:14px;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    background: var(--primary-color, var(--color-a));
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button-flat a:hover
+{
+    cursor: pointer;
+    background: var(--hover-color, var(--color-b));
+    color: var(--white);
+    text-decoration: none;
+}
+
+
+.select-field
+{
+    width: 180px;
+    height: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:16px;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    background: var(--primary-color, #40affb);
+    border-radius: 100px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+    text-transform: uppercase;
+    outline: 0;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+
+   -webkit-appearance:none;
+   -ms-appearance:none;
+   -o-appearance:none;
+    appearance:none;
+}
+
+.select-field:hover
+{
+    background: var(--hover-color, #338cc9);
+    color: var(--white);
+    text-decoration: none;
+    border: none;
+    
+}

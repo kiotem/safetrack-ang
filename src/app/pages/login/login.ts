@@ -1,25 +1,35 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { tooglePasswordVisibility } from '../../../commons/controls';
 import { LoaderService } from '../../services/commons/loader';
 import { Loader } from '../../components/loader/loader';
+import { UserService } from '../../services/user/user';
+import { VerificationCode } from '../../components/verification-code/verification-code';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, Loader],
+  imports: [ReactiveFormsModule, Loader, VerificationCode],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login implements OnInit {
   // Define form controls and methods for login functionality here
-
+  tempUser: any;
   loginForm : FormGroup;
   username: FormControl;
   password: FormControl;
 
-  constructor(private renderer: Renderer2, private loaderService: LoaderService) 
+  launchVerificationCode: boolean;
+
+  @ViewChild(VerificationCode) verificationCodeChild: VerificationCode | undefined;
+
+
+  constructor(private renderer: Renderer2, private loaderService: LoaderService, private userService: UserService, private cdr: ChangeDetectorRef) 
   {
+    
+
+    this.launchVerificationCode = false; // Initialize the flag for verification code component
     // Initialize form controls or services if needed
     this.username = new FormControl('');
     this.password = new FormControl('');
@@ -32,10 +42,13 @@ export class Login implements OnInit {
   ngOnInit() {
     // Initialization logic for the login component
     console.log('Login component initialized');
+
+    /*
     this.loaderService.show(); // Show loader on initialization
     setTimeout(() => {
       this.loaderService.hide(); // Hide loader after a delay (e.g., after 2 seconds)
     }, 2000);
+    */
     
   }
 
@@ -64,7 +77,7 @@ export class Login implements OnInit {
       }else
       {
         if(this.loginForm.valid) {
-        //this.handleSubmit();
+        this.handleSubmit();
       }
       return;
       }
@@ -72,66 +85,55 @@ export class Login implements OnInit {
   }
 
   handleSubmit() {
-    /*
-    if (this.loginForm.valid) 
-      {
-      console.log('Form submitted', this.loginForm.value);
+    // Handle form submission logic here
+    if(this.loginForm.valid) {
+      this.loaderService.show();
 
-      const pLoader = document.getElementById('p_loader');
-      const buttonLogin = document.getElementById('bt_login');
-      if (pLoader) {
-        pLoader.style.display = 'block';
-      }
-
-      if (buttonLogin) {
-        buttonLogin.style.display = 'none';
-      }
-
-      this.isLoading = true; // Set loading state
       const loginData = this.loginForm.value;
-      
+
       this.userService.login(loginData).subscribe({
         next: (response) => {
           console.log('Login successful', response);
-          this.isLoading = false;
+          //this.loaderService.hide();
+          this.tempUser = response.result.user;
+          sessionStorage.setItem('tempUser', JSON.stringify(this.tempUser));
+          console.log('Temporary user data:', this.tempUser);
 
+          sessionStorage.setItem('vendorsList', JSON.stringify(response.vendorsList));
 
+          this.loaderService.hide();
 
-          this.userService.saveUser(response);
-
-          // Navigate to the home page or another page after successful login
-          //this.router.navigate(['/dashboard']);
-          //this.downloadProjects();
-        },
-        error: (error) => {
-          console.error('Login failed', error);
-          console.log('Login failed error', error.error.code);
-
-          this.isLoading = false; // Reset loading state
-
-          const pLoader = document.getElementById('p_loader');
-          if (pLoader) {
-            pLoader.style.display = 'none';
-          }
-          const buttonLogin = document.getElementById('bt_login');
-          if (buttonLogin) {
-            buttonLogin.style.display = 'block';
-          }
-
-          if(error.error.code == '101')
+          const verificationCodeComponent = document.getElementById('verification-component');
+          if (verificationCodeComponent) 
           {
-            const divMessage = document.getElementById('div_message');
-            if (divMessage) {
-              divMessage.style.display = 'block';
-              divMessage.innerHTML = 'Datos incorrectos';
-            }
+            verificationCodeComponent.style.display = 'block';
+
           }
-          // Handle login error, e.g., show an error message
+
+          if(this.verificationCodeChild)
+          {
+              this.verificationCodeChild.sendVerificationCode({ user: this.tempUser });
+          }
+              
+
+
+            const i_0 = document.getElementById('i_0') as HTMLInputElement;
+            if (i_0) {
+              i_0.focus();
+            }
+          this.cdr.detectChanges(); // Trigger change detection to update the view
+          
+          },
+        error: (error) => {
+          this.loaderService.hide();
+          console.error('Login failed', error);
+          alert('¡Datos incorrectos!');
+          this.loginForm.reset();
+          this.renderer.selectRootElement('#i_username').focus();
+
         }
       });
-    }else{
-      console.log('Form is invalid');
-    }*/
+    }
   }
   
 }
