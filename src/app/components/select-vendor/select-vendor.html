@@ -1,0 +1,12 @@
+<div id="vendor-selector" style="display: none;">
+    <div id="panel-vendor-selector">
+        <div  id="close-vendor-selector"><a (click)="closeSelector()"><i class="fa fa-times"></i></a></div>
+        <div style="font-size: 24px; margin-bottom: 20px;" align="center">SELECCIONAR OPERACIÓN</div>
+        <div id="panel-vendor-selector-content">
+            @for(v of vendors; track $index)
+            {
+                <app-vendor-card [vendor]="v"></app-vendor-card>
+            }
+        </div>
+    </div>
+</div>

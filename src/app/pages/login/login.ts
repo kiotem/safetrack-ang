@@ -27,8 +27,6 @@ export class Login implements OnInit {
 
   constructor(private renderer: Renderer2, private loaderService: LoaderService, private userService: UserService, private cdr: ChangeDetectorRef) 
   {
-    
-
     this.launchVerificationCode = false; // Initialize the flag for verification code component
     // Initialize form controls or services if needed
     this.username = new FormControl('');
@@ -41,15 +39,12 @@ export class Login implements OnInit {
 
   ngOnInit() {
     // Initialization logic for the login component
-    console.log('Login component initialized');
+    console.log('Login component initialized');    
 
-    /*
-    this.loaderService.show(); // Show loader on initialization
-    setTimeout(() => {
-      this.loaderService.hide(); // Hide loader after a delay (e.g., after 2 seconds)
-    }, 2000);
-    */
-    
+    sessionStorage.removeItem('selectedVendor');
+    sessionStorage.removeItem('tempUser');  
+    sessionStorage.removeItem('vendorsList');
+    sessionStorage.removeItem('user');  
   }
 
   onLogin() {
@@ -93,13 +88,15 @@ export class Login implements OnInit {
 
       this.userService.login(loginData).subscribe({
         next: (response) => {
-          console.log('Login successful', response);
-          //this.loaderService.hide();
+          //console.log('Login successful', response);
+          
           this.tempUser = response.result.user;
           sessionStorage.setItem('tempUser', JSON.stringify(this.tempUser));
-          console.log('Temporary user data:', this.tempUser);
+          //console.log('Temporary user data:', this.tempUser);
 
-          sessionStorage.setItem('vendorsList', JSON.stringify(response.vendorsList));
+          //console.log('Vendors list:', response.result.vendorsList);
+
+          sessionStorage.setItem('vendorsList', JSON.stringify(response.result.vendorsList));
 
           this.loaderService.hide();
 
@@ -107,7 +104,6 @@ export class Login implements OnInit {
           if (verificationCodeComponent) 
           {
             verificationCodeComponent.style.display = 'block';
-
           }
 
           if(this.verificationCodeChild)
@@ -115,8 +111,6 @@ export class Login implements OnInit {
               this.verificationCodeChild.sendVerificationCode({ user: this.tempUser });
           }
               
-
-
             const i_0 = document.getElementById('i_0') as HTMLInputElement;
             if (i_0) {
               i_0.focus();

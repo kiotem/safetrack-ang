@@ -45,6 +45,7 @@ export class VerificationCode implements OnInit{
       }
     }
   }
+  
 
   sendVerificationCode(data: { user: any }) {
     console.log('Sending verification code for user:', data.user);
@@ -79,17 +80,21 @@ export class VerificationCode implements OnInit{
     ).join('');
     console.log('Final verification code:', this.codeTyped);
 
-    if(this.codeTyped == this.codeSent) {
+    if(this.codeTyped == this.codeSent) 
+    {
       console.log('Verification code is correct');
       this.goMap();
-    } else {
+    }else 
+    {
       console.log('Verification code is incorrect');
       alert('Código incorrecto');
       this.codeTyped = ''; 
 
-      for (let i = 0; i < 6; i++) {
+      for(let i = 0; i < 6; i++) 
+      {
         const input = document.getElementById(`i_${i}`) as HTMLInputElement;
-        if (input) {
+        if(input) 
+        {
           input.value = ''; // Clear each input field
         }
       }
@@ -102,6 +107,17 @@ export class VerificationCode implements OnInit{
 
   goMap()
   {
-    this.router.navigate(['/map']);
+    let tempUser = sessionStorage.getItem('tempUser');
+    if(tempUser)
+    {
+      tempUser = JSON.parse(tempUser);
+      console.log('Temporary user data:', tempUser);
+      
+      sessionStorage.setItem('user', JSON.stringify(tempUser));
+      sessionStorage.removeItem('tempUser');
+
+      this.router.navigate(['/map']);
+    } 
+    
   }
 }

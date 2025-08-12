@@ -1,0 +1,42 @@
+.vendor-card 
+{
+    align-items: center;
+    border-radius: 15px;
+    background: linear-gradient(90deg, rgba(89, 58, 151, 1) 0%, rgba(232, 62, 51, 1) 93%);
+    padding: 12px;
+    margin-bottom: 20px;
+    max-width: 220px;
+    height: 240px;
+    color: var(--white);
+
+    #vendor-icon{
+        width: 180px; 
+        border-radius: 10px; 
+        margin-top: 10px;
+    }
+
+    #vendor-name{
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-top: 10px;
+        font-size: 15px;
+        text-align: center;
+    }
+
+    #vendor-city{
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 13px;
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+
+.vendor-card:hover
+{
+    background-color: var(--color-b);
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+

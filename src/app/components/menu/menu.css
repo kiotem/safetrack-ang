@@ -10,7 +10,7 @@
     background-color: var(--light-1);
     font-size: 11.5px;
     margin: 0;
-    height: 41px;
+    height: 45px;
     left: 0px;
     z-index: 20000;
     right: 0;
@@ -20,7 +20,7 @@
 #div_menu
 {
     background-color: var(--light-1);
-    height: 42px; 
+    height: 45px; 
     width: 100%; 
     z-index: 20000; 
 }
@@ -34,7 +34,7 @@ ul, ol{
     background-color: var(--light-1);
     color: var(--color-a);
     text-decoration: none;
-    padding: 10px 15px;
+    padding: 14px 15px;
     display: block;
     cursor: pointer;
     z-index: 20000;

@@ -1,9 +1,17 @@
 export default class MenuItems {
   static items = [
-     {
+     /*{
         "id": 'dashboard',
         "name": "Dashboard",
         "icon": "fa-solid fa-grid-horizontal",
+        "url": "dashboard.php",
+        "is_action": true,
+        "subitems":[]
+    },*/
+    {
+        "id": 'map',
+        "name": "Mapa",
+        "icon": "fa-regular fa-map-location-dot",
         "url": "dashboard.php",
         "is_action": true,
         "subitems":[]

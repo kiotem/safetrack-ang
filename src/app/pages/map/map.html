@@ -1,12 +1,25 @@
-<!--<google-map height="500px" width="100%" [center]="mapCenter" [zoom]="mapZoom"></google-map>-->
 
-<!-- Add a marker to the Google Map -->
-<div class="container-map">
-<google-map [height]="'94vh'" width="100%" [center]="mapCenter" [zoom]="mapZoom" [options]="mapOptions">
-    <map-marker [position]="mapCenter"></map-marker>
-</google-map>
+
+<div class="container-map"> 
+<google-map
+  height="94vh"
+  width="100vw"
+  class="map"
+  [options]="mapOptions"
+  [center]="center"
+  [zoom]="zoom">
+    @for(p of points; track $index)
+    {
+      <map-advanced-marker
+        [id] = "p.title"
+        [position]="{lat: p.lat, lng: p.lng}"
+        [title]="p.title"
+        (mapClick)="setMarkerCenter(p)"
+        [content]="createImageAlert()"
+      ></map-advanced-marker>
+    }
+  </google-map>
 </div>
-<!--<google-map height="100vh" width="100%" [center]="mapCenter" [zoom]="mapZoom">
-    <map-marker [position]="mapCenter"></map-marker>
-</google-map>-->
+
+<app-select-vendor></app-select-vendor>
 <app-menu></app-menu>
