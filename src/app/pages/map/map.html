@@ -1,5 +1,3 @@
-
-
 <div class="container-map"> 
 <google-map
   height="94vh"
@@ -8,18 +6,36 @@
   [options]="mapOptions"
   [center]="center"
   [zoom]="zoom">
-    @for(p of points; track $index)
+    @for(v of vehicleService.vehicles; track $index)
     {
       <map-advanced-marker
-        [id] = "p.title"
-        [position]="{lat: p.lat, lng: p.lng}"
-        [title]="p.title"
-        (mapClick)="setMarkerCenter(p)"
-        [content]="createImageAlert()"
-      ></map-advanced-marker>
+        [id] = "v.objectId"
+        [position]="{lat: v.latitude, lng: v.longitude}"
+        [title]="v.plateNumber"
+        (mapClick)="centerMap(v)"
+        [content]="createImageAlert()">
+      </map-advanced-marker>
     }
   </google-map>
 </div>
+
+<div style="position: absolute; top: 70px; left: 10px; z-index: 1; min-width: 220px; max-width: 250px; height: 40px;">
+  <input id='input-search-vehicle' type="text" placeholder="Buscar">
+  <button style="background: none; border: none; cursor: pointer; margin-left: -35px;">
+    <i class="fas fa-search" style="font-size: 16px; color: #f3f3f3;"></i>
+  </button>
+</div>
+
+<div style="position: absolute; width: 250px; min-height: 10px; max-height:calc(100% - 230px); left: 10px; top:120px; border-radius: 10px; border: 0px solid #4E4E4E; backdrop-filter: blur(15px); background-color: #f3f3f3; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15); overflow-y: overlay;" id="panel-vehicle-list">
+    <div style="padding: 0px;" id="vehicle-list">
+    @for(v of vehicleService.vehicles; track $index)
+    {
+        <app-vehicle-card [vehicle]="v"></app-vehicle-card>
+    }
+
+    </div>
+</div>
+
 
 <app-select-vendor></app-select-vendor>
 <app-menu></app-menu>

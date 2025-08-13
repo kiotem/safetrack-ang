@@ -110,11 +110,14 @@ export class VerificationCode implements OnInit{
     let tempUser = sessionStorage.getItem('tempUser');
     if(tempUser)
     {
-      tempUser = JSON.parse(tempUser);
-      console.log('Temporary user data:', tempUser);
+      //tempUser = JSON.parse(tempUser);
+      //console.log('Temporary user data:', tempUser);
       
-      sessionStorage.setItem('user', JSON.stringify(tempUser));
+      sessionStorage.setItem('user', tempUser);
       sessionStorage.removeItem('tempUser');
+
+      let temp = sessionStorage.getItem('user');
+      console.log('User data saved to sessionStorage:', temp);
 
       this.router.navigate(['/map']);
     } 

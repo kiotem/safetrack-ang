@@ -5,13 +5,16 @@ import Vendor from '../models/Vendor';
   providedIn: 'root'
 })
 export class VendorService {
-  selectedVendor: Vendor | undefined;
+  selectedVendor: Vendor;
 
   constructor() {
+    this.selectedVendor = {
+      objectId: '',      
+    };
     this.loadSelectedVendor();
   }
 
-  getSelectedVendor(): Vendor | undefined {
+  getSelectedVendor(): Vendor{
     return this.selectedVendor;
   }
 

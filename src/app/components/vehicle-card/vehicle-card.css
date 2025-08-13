@@ -1,0 +1,54 @@
+.vehicle-card
+{
+    display: flex; 
+    align-items: center; 
+    padding: 10px; 
+    border-bottom: 2px solid #e3e7e9;
+
+    #vehicle-icon{
+        font-size: 24px;
+        color: var(--red);
+        margin-right: 15px;
+    }
+
+    #vehicle-plate
+    {
+        font-size: 16px;
+        color: var(--color-a);
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-top: 0px;
+    }
+
+    #vehicle-time
+    {
+        font-size: 14px;
+        margin-top: 4px;
+        color: var(--gray);
+    }
+
+}
+
+.vehicle-card:hover{
+    background: linear-gradient(90deg, rgba(89, 58, 151, 1) 0%, rgba(232, 62, 51, 1) 93%);
+    color: var(--white);
+    cursor: pointer;
+
+    #vehicle-icon{
+        font-size: 24px;
+        color: var(--white);
+        margin-right: 15px;
+    }
+
+    #vehicle-plate
+    {
+        color: var(--white);
+    }
+
+    #vehicle-time
+    {
+
+        color: var(--white);
+    }
+}
+

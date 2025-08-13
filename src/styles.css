@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+::-webkit-input-placeholder { color: var(--light); opacity: 0.6;} /* WebKit */
+:-moz-placeholder { color: var(--light); opacity: 0.6; } /* Firefox 18- */
+::-moz-placeholder { color: var(--light); opacity: 0.6; } /* Firefox 19+ */
+:-ms-input-placeholder { color: var(--light); opacity: 0.6; } /* IE 10+ */
+
 :root{
     --color-a-safetech: #e83e33; 
     --color-b-safetech: #593a97; 
@@ -281,6 +287,30 @@ html
 }
 
 .input-search:focus, .select-search:focus{
+    border: 1px solid var(--color-a);
+    background-color: var(--color-a);
+    color: var(--white);
+    outline: none;
+}
+
+.input-search-fit{
+    min-width: 200px;
+    border: 1px solid #cccccc;
+    height: 34px;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding-left: 10px;
+    border-radius: 100px;
+    background-color: var(--info);
+
+}
+
+.input-search-fit:hover, .select-search:hover
+{
+    border: 1px solid var(--color-a);
+}
+
+.input-search-fit:focus, .select-search:focus{
     border: 1px solid var(--color-a);
     background-color: var(--color-a);
     color: var(--white);

@@ -23,17 +23,18 @@ export class UserService
     }
   }
 
-  getUser(): User | null {
+  getUser(): User | undefined 
+  {
     const userJson = sessionStorage.getItem('user');
-    if (userJson) {
-      try {
-        return JSON.parse(userJson) as User;
-      }catch (error) {
-        console.error('Error parsing user from sessionStorage:', error);
-        return null;
-      }
+    console.log('User retrieved from sessionStorage:', userJson);
+    if(userJson) 
+    {
+      this.user = JSON.parse(userJson || '{}') as User;
+      return this.user;
     }
-    return null;
+
+    return undefined;
+    
   }
 
   login(data: any) {

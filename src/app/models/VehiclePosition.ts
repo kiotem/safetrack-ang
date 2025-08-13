@@ -6,8 +6,8 @@ export default interface VehiclePosition
     brand: string;
     time: string;
     speed: number;
-    lat: number;
-    lng: number;
+    latitude: number;
+    longitude: number;
     odometer: number;
     ignition: boolean;
 }

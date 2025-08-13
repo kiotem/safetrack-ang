@@ -1,13 +1,15 @@
-import { Component, OnInit, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, viewChild } from '@angular/core';
 import { GoogleMap, MapAdvancedMarker, MapMarker } from '@angular/google-maps';
 import { Menu } from '../../components/menu/menu';
 import { SelectVendor } from '../../components/select-vendor/select-vendor';
-import Vendor from '../../models/Vendor';
 import { Router } from '@angular/router';
 import { VendorService } from '../../services/vendor';
-import MapStyle from './mapStyle';
-
-// Import AdvancedMarkerElement from google.maps.marker
+import { VehicleCard } from '../../components/vehicle-card/vehicle-card';
+import Vehicle from '../../models/Vehicle';
+import { VehicleService } from '../../services/vehicle/vehicle';
+import { UserService } from '../../services/user/user';
+import User from '../../models/User';
+import Vendor from '../../models/Vendor';
 
 interface Marker {
       position: google.maps.LatLngLiteral;
@@ -15,41 +17,35 @@ interface Marker {
       icon: { url: string;};
       infoWindowContent?: string;
     }
-
-    export default interface Points{
-      lat: number;
-      lng: number;
-      title: string;
-    }
-
+    
 @Component({
   selector: 'app-map',
-  imports: [GoogleMap, Menu, MapAdvancedMarker, SelectVendor],
+  imports: [GoogleMap, Menu, MapAdvancedMarker, SelectVendor, VehicleCard],
   templateUrl: './map.html',
   styleUrl: './map.css'
 })
 export class Map implements OnInit
 {   
-  markers: Marker[] = [];
-  points: Points[] = [];
+  markers: Marker[];
+  user: User | undefined;
+  vendor: Vendor;
 
-center: google.maps.LatLngLiteral = { lat: 19.4326, lng: -99.1332 };
+  center: google.maps.LatLngLiteral = { lat: 19.4326, lng: -99.1332 };
   zoom = 4;
 
-  mapOptions: google.maps.MapOptions = {
+  mapOptions: google.maps.MapOptions = 
+  {
     zoomControl: false,
     streetViewControl: true,
     fullscreenControl: false,
     mapTypeControl: false,
-    mapId: '7f656e587f4e86ae627f4c40',
-    panControl: false
+    mapId: '7f656e587f4e86ae627f4c40'
   };
   
 
   markerOptions: google.maps.marker.AdvancedMarkerElementOptions = {
     gmpDraggable: false,
     gmpClickable: true,
-
   };
 
   createImageAlert()
@@ -64,35 +60,112 @@ center: google.maps.LatLngLiteral = { lat: 19.4326, lng: -99.1332 };
 
   private mapReference = viewChild.required<GoogleMap>(GoogleMap);
 
-  setMarkerCenter(p: Points){
-    this.mapReference().panTo({ lat: p.lat, lng: p.lng });
+  centerMap(v: Vehicle)
+  {
+    this.mapReference().panTo({ lat: v.latitude, lng: v.longitude });
   }
 
   ngOnInit(): void {
     
     console.log('Map component initializeddd');
+    this.vendor = this.vendorService.getSelectedVendor();
 
+    let tempUser = sessionStorage.getItem('user');
+    console.log('User inMap user data:', tempUser);
+    this.user = JSON.parse(tempUser || '{}') as User;
+
+    console.log('User Name in Map:', this.user.name);
+
+    this.downloadVehicles();
   }
 
-  constructor(private router: Router, private vendorService: VendorService) { 
+  constructor(private router: Router, private vendorService: VendorService, public vehicleService: VehicleService, public userService: UserService, public cdr: ChangeDetectorRef) { 
     this.markers = [];
-    this.points = [];
-    this.points.push({ lat: 19.4326, lng: -99.1332, title: 'Mexico City' });
-    this.points.push({ lat: 34.0522, lng: -118.2437, title: 'Los Angeles' });
-    this.points.push({ lat: 40.7128, lng: -74.0060, title: 'New York' });
-    this.points.push({ lat: 41.8781, lng: -87.6298, title: 'Chicago' });
-    this.points.push({ lat: 29.7604, lng: -95.3698, title: 'Houston' });
-    this.points.push({ lat: 33.4484, lng: -112.0740, title: 'Phoenix' });
-    this.points.push({ lat: 39.7392, lng: -104.9903, title: 'Denver' });
-    this.points.push({ lat: 25.7617, lng: -80.1918, title: 'Miami' });
-    this.points.push({ lat: 47.6062, lng: -122.3321, title: 'Seattle' });
-    this.points.push({ lat: 32.7157, lng: -117.1611, title: 'San Diego' });
-    this.points.push({ lat: 38.9072, lng: -77.0369, title: 'Washington D.C.' });
-    this.points.push({ lat: 37.7749, lng: -122.4194, title: 'San Francisco' });
-    this.points.push({ lat: 35.2271, lng: -80.8431, title: 'Charlotte' });
+    this.vendor = {objectId: '', name: ''};
+    this.user = undefined;
+
+    /*
+    this.vendor = this.vendorService.getSelectedVendor();
+
+    let tempUser = sessionStorage.getItem('user');
+    console.log('User inMap user data:', tempUser);
+    this.user = JSON.parse(tempUser || '{}') as User;
+
+    console.log('User Name in Map:', this.user.name);
+    */
   }
 
+  downloadVehicles() {
 
+    if(this.vendor.objectId != '')
+    {
+      const data = {
+        vendor: this.vendor.objectId,
+        userId: this.user?.objectId
+      };
 
+      this.vehicleService.downloadVehicles(data, this.user!.sessionToken).subscribe({
+        next: (response) => {
+          console.log('Vehicles downloaded successfully:', response);
+
+          this.vehicleService.fillVehicles(response.result);
+          //console.log('Vehicles after clearData:', this.vehicles);
+         // this.vehicles = response.vehicles; // Assuming the response contains an array of vehicles
+
+          this.cdr.detectChanges();
+        },
+        error: (error) => 
+        {
+          console.error('Error downloading vehicles:', error);
+        }
+      });
+    }
+
+  }
+
+  /*
+  clearData(data: any[] | undefined): Vehicle[]
+  {
+    let response: Vehicle[] = [];
+
+    this.vehicleService.clearVehicles();
+
+    if(data)
+    {
+      let size = data.length;
+
+      for(let i = 0; i < size; i++)
+      {
+
+        if(data[i].lastEventPosition != null)
+        {
+          let item = data[i];
+          let position = item.lastEventPosition.position;
+          let device = item.lastEventPosition.device;
+
+          let attributes = position.attributes;
+
+          let vehicle: Vehicle = {
+            objectId: item.objectId,
+            brand: item.brand,
+            plateNumber: item.plateNumber,
+            pmsId: item.pmsId,
+
+            time: position.fixTime,
+            speed: position.speed,
+            latitude: position.latitude,
+            longitude: position.longitude,
+            odometer: attributes.odometer,
+            ignition: attributes.ignition
+
+          };
+          //response.push(vehicle);
+          this.vehicleService.addVehicle(vehicle);
+        }
+      }
+    }
+
+    return response;
+  }
+  */
 }
-

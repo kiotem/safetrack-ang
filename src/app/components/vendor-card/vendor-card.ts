@@ -17,7 +17,6 @@ export class VendorCard {
 
   changeVendor(vendor: Vendor | undefined) 
   {
-    console.log('Selected Vendor:', vendor);
     sessionStorage.setItem('selectedVendor', JSON.stringify(vendor));
 
     window.location.reload();

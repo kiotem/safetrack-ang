@@ -24,12 +24,9 @@ export class SelectVendor implements OnInit {
     this.loadVendors();
 
 let tempSelectedVendor = sessionStorage.getItem('selectedVendor');
-
-    console.log('Temp Selected Vendor from sessionStorage:', tempSelectedVendor);
     if(tempSelectedVendor)
     {
       this.selectedVendor = JSON.parse(tempSelectedVendor);
-      console.log('Selected Vendor on Map:', this.selectedVendor);
 
        let panel = document.getElementById('vendor-selector');
       console.log('Panel:', panel);
@@ -56,8 +53,6 @@ let tempSelectedVendor = sessionStorage.getItem('selectedVendor');
       let vendorsText = sessionStorage.getItem('vendorsList');
       if (vendorsText) {
           this.vendors = JSON.parse(vendorsText);
-          // Do something with the vendors data
-          console.log('Select Vendors:', this.vendors);
       }
   }
 
